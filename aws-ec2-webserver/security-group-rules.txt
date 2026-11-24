@@ -1,0 +1,28 @@
+SECURITY GROUP: webserver-http-ssh
+
+INBOUND RULES
+Type: HTTP
+Protocol: TCP
+Port: 80
+Source: 0.0.0.0/0
+Purpose: Allow public IPv4 web browsers to load the demo website.
+
+Type: SSH
+Protocol: TCP
+Port: 22
+Source: YOUR_CURRENT_PUBLIC_IPV4/32
+Purpose: Allow SSH only from your current public IPv4 address.
+Important: Replace the source with your actual public IPv4 address followed by /32.
+Never use 0.0.0.0/0 for SSH.
+
+OUTBOUND RULES
+For this beginner setup, retain the default outbound rule that allows all traffic.
+It lets the instance install Apache and operating-system updates. In production,
+restrict egress to the destinations and ports the workload actually needs.
+
+NOTES
+- Security groups are stateful: response traffic for allowed connections is permitted.
+- Do not add inbound rules for ports you are not using.
+- If your public IPv4 address changes, update the SSH source rule before connecting.
+- HTTP on port 80 is unencrypted. Use HTTPS with a domain and TLS certificate for
+  real services or sensitive information.
